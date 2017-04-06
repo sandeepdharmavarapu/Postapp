@@ -1,0 +1,51 @@
+<html>
+  <head>
+    <title>Postapp</title>
+    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+    <script src="app.js"></script>
+    <style> .glyphicon-thumbs-up { cursor:pointer } </style>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  </head>
+  <body ng-app = "PostApp">
+   <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <ui-view></ui-view>
+    </div>
+   </div>     
+     <script type="text/ng-template" id="/home.html">  
+      <div class="page-header">
+        <h1>Postapp</h1>
+      </div>
+     <div ng-repeat = "post in posts | orderBy: '-upvotes'">
+      <span class="glyphicon glyphicon-thumbs-up" ng-click = "incVotes(post)"></span>
+      {{post.upvotes}}
+      <span style="font-size:20px; margin-left:10px;">
+        <a href = "{{post.link}}" ng-show = "post.link">
+          {{post.title}}
+        </a>
+        <span ng-hide = "post.link">
+          {{post.title}}
+        </span>    
+     </span>  
+     </div>
+     <form ng-submit = "addPost()" style="margin-top:30px;">
+      <h3>Add a new post</h3>
+      <div class="form-group">
+          <input type="text"
+            class="form-control"
+            placeholder="Title"
+            ng-model="title"></input>
+        </div>
+        <div class="form-group">
+          <input type="text"
+          class="form-control"
+          placeholder="Link"
+          ng-model="link"></input>
+        </div>
+        <button type = "submit">Post</button>
+     </form>
+    </script> 
+  </body>
+</html>
